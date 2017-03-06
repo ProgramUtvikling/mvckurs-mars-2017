@@ -25,6 +25,7 @@ namespace ImdbWeb.Controllers
             return "PersonController.Producers()";
         }
 
+        [Route("Person/{id:int}")]
         public string Details(string id)
         {
             return $"PersonController.Details({id})";

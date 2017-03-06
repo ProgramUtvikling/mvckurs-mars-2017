@@ -25,6 +25,7 @@ namespace ImdbWeb.Controllers
             return "MovieController.Genres()";
         }
 
+        [Route("Movie/Genre/{genrename}")]
         public string MoviesByGenre(string genrename)
         {
             return $"MovieController.MoviesByGenre({genrename})";

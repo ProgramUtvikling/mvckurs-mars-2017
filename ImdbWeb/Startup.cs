@@ -22,19 +22,7 @@ namespace ImdbWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseMvc(routes => {
-                routes.MapRoute("Movies by genre route", "Movie/Genre/{genrename}",
-                    new { Controller = "Movie", Action = "MoviesByGenre" });
-
-                routes.MapRoute("Person details", "Person/{id}",
-                    new { Controller = "Person", Action = "Details" },
-                    new { id=@"\d+"});
-
-                routes.MapRoute("Movie cover route", "Image/{format}/{id}.jpg",
-                    new { Controller="Image", Action="CreateImage"});
-
-                routes.MapRoute("Default route", "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
