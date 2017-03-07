@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImdbWeb", "ImdbWeb\ImdbWeb.xproj", "{8B57F566-2321-43C0-B68D-7923840F37B6}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImdbDAL", "ImdbDAL\ImdbDAL.xproj", "{731B6A3E-8F0E-460D-B1AC-8F0AC67E4EAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8B57F566-2321-43C0-B68D-7923840F37B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B57F566-2321-43C0-B68D-7923840F37B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B57F566-2321-43C0-B68D-7923840F37B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{731B6A3E-8F0E-460D-B1AC-8F0AC67E4EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731B6A3E-8F0E-460D-B1AC-8F0AC67E4EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731B6A3E-8F0E-460D-B1AC-8F0AC67E4EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731B6A3E-8F0E-460D-B1AC-8F0AC67E4EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

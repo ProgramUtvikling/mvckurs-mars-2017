@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Movie>
+
+@if (Model.Any())
+{
+    <h2>@Model.GetTitle()</h2>
+    <ul>
+        @foreach (var movie in Model)
+        {
+            <li>
+                @Html.ActionLink(movie.Title, "Details", "Movie", new { id = movie.MovieId })
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,9 @@
+﻿@model Person
+
+<h1>@Model.Name</h1>
+
+@Html.Partial("_MovieList", Model.ActedMovies.WithTitle("Spilt i"))
+
+@Html.Partial("_MovieList", Model.ProducedMovies.WithTitle("Produsert"))
+
+@Html.Partial("_MovieList", Model.DirectedMovies.WithTitle("Regisert"))

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Genre>
+<h1>Sjangre</h1>
+
+<ul>
+    @foreach (var genre in Model)
+    {
+        <li>
+            @Html.ActionLink(genre.Name, "MoviesByGenre", new { genrename = genre.Name })
+        </li>
+    }
+</ul>

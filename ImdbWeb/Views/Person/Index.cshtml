@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Person>
+@{
+    var groups = from person in Model
+                 orderby person.Name
+                 group person by person.Name.Substring(0, 1).ToUpper() into g
+                 select new { FirstLetter = g.Key, Persons = g };
+}
+
+<h1>@Model.GetTitle()</h1>
+
+
+<div>
+    @foreach (var group in groups)
+    {
+        <a href="#@group.FirstLetter">@group.FirstLetter</a>
+    }
+</div>
+
+
+@foreach (var group in groups)
+{
+    <div id="@group.FirstLetter">
+        <h2>@group.FirstLetter</h2>
+        <ul>
+            @foreach (var person in group.Persons)
+            {
+                <li>
+                    @Html.ActionLink(person.Name, "Details", new { id = person.PersonId })
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+
+
+
