@@ -1,0 +1,23 @@
+﻿@model ImdbWeb.ViewModels.LogInModel
+
+<form asp-controller="Account" asp-action="LogIn" method="post">
+
+    <label asp-for="Username"></label>
+    <input asp-for="Username" />
+
+    <br />
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+
+    <br />
+
+    <input asp-for="RememberMe" />
+    <label asp-for="RememberMe"></label>
+
+    <br />
+
+    <button>Logg på</button>
+</form>
+
+

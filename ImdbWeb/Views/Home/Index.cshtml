@@ -1,6 +1,11 @@
 ﻿@{ ViewBag.Title = "Imdb"; }
 <h1>Velkommen til Ingars Movie Database</h1>
 
+@if (User.Identity.IsAuthenticated)
+{
+    <p>Du er logget på som: @User.Identity.Name</p>
+}
+
 <ul>
     <li>
         @Html.ActionLink("Filmer", "Index", "Movie")
@@ -12,4 +17,10 @@
     <li>@Html.ActionLink("Skuespillere", "Actors", "Person")</li>
     <li>@Html.ActionLink("Produsenter", "Producers", "Person")</li>
     <li>@Html.ActionLink("Regisører", "Directors", "Person")</li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink("Logg på", "LogIn", "Account")
+        @Html.ActionLink("Logg av", "SignOut", "Account")
+    </li>
 </ul>

@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using ImdbDAL;
 using ImdbWeb.Helpers;
 using System.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ImdbWeb.Controllers
 {
+    //[Authorize(ActiveAuthenticationSchemes = "MyAuthMiddleware")]
     public class MovieController : ImdbControllerBase
     {
 
