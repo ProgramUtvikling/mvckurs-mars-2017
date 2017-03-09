@@ -7,6 +7,7 @@ using ImdbDAL;
 using System.Xml.Linq;
 using System.Data.Entity;
 using System.Net;
+using ImdbWeb.Models.WebAPI;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,7 +46,7 @@ namespace ImdbWeb.Controllers
         private async Task<IActionResult> MoviesAsJson()
         {
             var movies = from movie in await Db.Movies.ToListAsync()
-                       select new { id = movie.MovieId, title = movie.Title };
+                         select new { id = movie.MovieId, title = movie.Title };
 
             return Json(movies);
         }
@@ -63,17 +64,26 @@ namespace ImdbWeb.Controllers
 
             var doc = new XElement("movie",
                           new XAttribute("id", movie.MovieId),
+                          new XAttribute("title", movie.Title),
                           new XAttribute("origTitle", movie.OriginalTitle),
                           new XAttribute("prodYear", movie.ProductionYear),
                           new XAttribute("runLen", movie.RunningLength),
                           from p in movie.Directors select new XElement("director", p.Name),
                           from p in movie.Producers select new XElement("producer", p.Name),
                           from p in movie.Actors select new XElement("actor", p.Name),
-                          movie.Title
+                          new XCData(movie.Description)
                       );
 
             return Content(doc.ToString(), "application/xml");
 
+        }
+
+        // The webAPI approach:
+        [HttpGet]
+        [Route("api/movies")]
+        public IEnumerable<MovieIndexModel> Get()
+        {
+            return Db.Movies.Select(m => new MovieIndexModel { Id = m.MovieId, Title = m.Title, ProdYear = m.ProductionYear });
         }
     }
 }

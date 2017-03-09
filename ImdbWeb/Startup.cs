@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using ImdbDAL;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace ImdbWeb
 {
@@ -40,6 +42,10 @@ namespace ImdbWeb
 
             services.AddOptions();
             services.Configure<ImdbOptions>(_configuration.GetSection("Imdb")); // IOptions<ImdbOptions>
+            services.Configure<MvcOptions>(options =>
+            {
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            });
 
         }
 
