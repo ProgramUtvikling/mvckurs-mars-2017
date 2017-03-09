@@ -12,12 +12,11 @@ using System.Net;
 
 namespace ImdbWeb.Controllers
 {
-    public class ImdbApiController : Controller
+    public class ImdbApiController : ImdbControllerBase
     {
-        private readonly ImdbContext _db;
         public ImdbApiController(ImdbContext db)
+            : base(db)
         {
-            _db = db;
         }
 
         public async Task<IActionResult> Movies(string fmt = "xml")
@@ -33,7 +32,7 @@ namespace ImdbWeb.Controllers
 
         private async Task<IActionResult> MoviesAsXml()
         {
-            var doc = new XElement("movies", from movie in await _db.Movies.ToListAsync()
+            var doc = new XElement("movies", from movie in await Db.Movies.ToListAsync()
                                              select new XElement("movie",
                                                  new XAttribute("id", movie.MovieId),
                                                  new XAttribute("title", movie.Title)
@@ -45,7 +44,7 @@ namespace ImdbWeb.Controllers
 
         private async Task<IActionResult> MoviesAsJson()
         {
-            var movies = from movie in await _db.Movies.ToListAsync()
+            var movies = from movie in await Db.Movies.ToListAsync()
                        select new { id = movie.MovieId, title = movie.Title };
 
             return Json(movies);
@@ -56,7 +55,7 @@ namespace ImdbWeb.Controllers
         public async Task<IActionResult> MovieDetails(string id)
         {
 
-            var movie = await _db.Movies.FindAsync(id);
+            var movie = await Db.Movies.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();

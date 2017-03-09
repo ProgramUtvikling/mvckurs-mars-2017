@@ -10,18 +10,15 @@ using ImdbWeb.Helpers;
 
 namespace ImdbWeb.Controllers
 {
-    public class PersonController : Controller
+    public class PersonController : ImdbControllerBase
     {
-        private readonly ImdbContext _db;
-
-        public PersonController(ImdbContext db)
+        public PersonController(ImdbContext db) : base(db)
         {
-            _db = db;
         }
 
         public ViewResult Actors()
         {
-            var persons = from person in _db.Persons
+            var persons = from person in Db.Persons
                           where person.ActedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Skuespillere");
@@ -30,7 +27,7 @@ namespace ImdbWeb.Controllers
 
         public ViewResult Producers()
         {
-            var persons = from person in _db.Persons
+            var persons = from person in Db.Persons
                           where person.ProducedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Produsenter");
@@ -39,7 +36,7 @@ namespace ImdbWeb.Controllers
 
         public ViewResult Directors()
         {
-            var persons = from person in _db.Persons
+            var persons = from person in Db.Persons
                           where person.DirectedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Regisører");
@@ -49,7 +46,7 @@ namespace ImdbWeb.Controllers
         [Route("Person/{id:int}")]
         public ViewResult Details(int id)
         {
-            var person = _db.Persons.Find(id);
+            var person = Db.Persons.Find(id);
             ViewData.Model = person;
             return View();
         }

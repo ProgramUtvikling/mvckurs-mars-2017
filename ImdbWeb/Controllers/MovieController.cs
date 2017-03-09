@@ -11,24 +11,22 @@ using System.Data.Entity;
 
 namespace ImdbWeb.Controllers
 {
-    public class MovieController : Controller
+    public class MovieController : ImdbControllerBase
     {
-        private readonly ImdbContext _db;
 
-        public MovieController(ImdbContext db)
+        public MovieController(ImdbContext db) : base(db)
         {
-            _db = db;
         }
 
         public async Task<ViewResult> Index()
         {
-            ViewData.Model = await _db.Movies.ToListAsync();
+            ViewData.Model = await Db.Movies.ToListAsync();
             return View();
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            var movie = await _db.Movies.FindAsync(id);
+            var movie = await Db.Movies.FindAsync(id);
             if(movie == null)
             {
                 return NotFound();
@@ -40,14 +38,14 @@ namespace ImdbWeb.Controllers
 
         public async Task<ViewResult> Genres()
         {
-            ViewData.Model = await _db.Genres.ToListAsync();
+            ViewData.Model = await Db.Genres.ToListAsync();
             return View();
         }
 
         [Route("Movie/Genre/{genrename}")]
         public async Task<ViewResult> MoviesByGenre(string genrename)
         {
-            var movies = await _db.Movies.Where(m => m.Genre.Name == genrename).ToListAsync();
+            var movies = await Db.Movies.Where(m => m.Genre.Name == genrename).ToListAsync();
             ViewData.Model = movies.WithTitle(genrename);
             return View("Index");
         }
