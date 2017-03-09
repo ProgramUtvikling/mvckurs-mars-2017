@@ -2,7 +2,10 @@
 <h1>Velkommen til Ingars Movie Database</h1>
 
 <ul>
-    <li>@Html.ActionLink("Filmer", "Index", "Movie")</li>
+    <li>
+        @Html.ActionLink("Filmer", "Index", "Movie")
+        (@Html.ActionLink("xml", "Movies", "ImdbApi")/@Html.ActionLink("json", "Movies", "ImdbApi", new { fmt = "json" }))
+    </li>
     <li>@Html.ActionLink("Sjangre", "Genres", "Movie")</li>
 </ul>
 <ul>

@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Entity;
+using Microsoft.Extensions.Options;
 
 namespace ImdbDAL
 {
-	public class ImdbContext : DbContext
+    public class ImdbContext : DbContext
 	{
-        public ImdbContext(string connectionString) : base(connectionString)
+        public ImdbContext(IOptions<ImdbOptions> optionsAccessor)
+            : base(optionsAccessor.Value.ConnectionString)
         {
+
         }
 
-		public IDbSet<Movie> Movies { get; set; }
-		public IDbSet<Genre> Genres { get; set; }
-		public IDbSet<Person> Persons { get; set; }
-		public IDbSet<Comment> Comments { get; set; }
-		public IDbSet<Rating> Ratings { get; set; }
+        //public ImdbContext(ImdbOptions options)
+        //    : base(options.ConnectionString)
+        //{
+
+        //}
+
+
+        public DbSet<Movie> Movies { get; set; }
+		public DbSet<Genre> Genres { get; set; }
+		public DbSet<Person> Persons { get; set; }
+		public DbSet<Comment> Comments { get; set; }
+		public DbSet<Rating> Ratings { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

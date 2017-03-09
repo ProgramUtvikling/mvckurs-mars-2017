@@ -16,7 +16,7 @@
     <dd>@Html.PrettyJoin(Model.Producers)</dd>
 </dl>
 
-@Html.Partial("_PersonList", Model.Actors.WithTitle("Skuespillere"))
+@await Html.PartialAsync("_PersonList", Model.Actors.WithTitle("Skuespillere"))
 
 
 

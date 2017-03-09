@@ -1,0 +1,8 @@
+﻿{
+  "Imdb": {
+    "ConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Imdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "Version": "1.0.0"
+  },
+  "KundeDatabase": {},
+  "NoeHeltAnnet":  7
+}

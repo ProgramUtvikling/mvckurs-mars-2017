@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ImdbDAL;
 using ImdbWeb.Helpers;
+using System.Data.Entity;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,45 +13,41 @@ namespace ImdbWeb.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly ImdbContext Db;
+        private readonly ImdbContext _db;
 
-        public MovieController()
+        public MovieController(ImdbContext db)
         {
-            Db = new ImdbContext(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Imdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            _db = db;
         }
 
-        protected override void Dispose(bool disposing)
+        public async Task<ViewResult> Index()
         {
-            if (disposing && Db != null)
-            {
-                Db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        public ViewResult Index()
-        {
-            ViewData.Model = Db.Movies;
+            ViewData.Model = await _db.Movies.ToListAsync();
             return View();
         }
 
-        public ViewResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var movie = Db.Movies.Find(id);
+            var movie = await _db.Movies.FindAsync(id);
+            if(movie == null)
+            {
+                return NotFound();
+            }
+
             ViewData.Model = movie;
             return View();
         }
 
-        public ViewResult Genres()
+        public async Task<ViewResult> Genres()
         {
-            ViewData.Model = Db.Genres;
+            ViewData.Model = await _db.Genres.ToListAsync();
             return View();
         }
 
         [Route("Movie/Genre/{genrename}")]
-        public ViewResult MoviesByGenre(string genrename)
+        public async Task<ViewResult> MoviesByGenre(string genrename)
         {
-            var movies = Db.Movies.Where(m => m.Genre.Name == genrename);
+            var movies = await _db.Movies.Where(m => m.Genre.Name == genrename).ToListAsync();
             ViewData.Model = movies.WithTitle(genrename);
             return View("Index");
         }

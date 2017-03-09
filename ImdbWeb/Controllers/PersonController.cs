@@ -12,25 +12,16 @@ namespace ImdbWeb.Controllers
 {
     public class PersonController : Controller
     {
-        private readonly ImdbContext Db;
+        private readonly ImdbContext _db;
 
-        public PersonController()
+        public PersonController(ImdbContext db)
         {
-            Db = new ImdbContext(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Imdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && Db != null)
-            {
-                Db.Dispose();
-            }
-            base.Dispose(disposing);
+            _db = db;
         }
 
         public ViewResult Actors()
         {
-            var persons = from person in Db.Persons
+            var persons = from person in _db.Persons
                           where person.ActedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Skuespillere");
@@ -39,7 +30,7 @@ namespace ImdbWeb.Controllers
 
         public ViewResult Producers()
         {
-            var persons = from person in Db.Persons
+            var persons = from person in _db.Persons
                           where person.ProducedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Produsenter");
@@ -48,7 +39,7 @@ namespace ImdbWeb.Controllers
 
         public ViewResult Directors()
         {
-            var persons = from person in Db.Persons
+            var persons = from person in _db.Persons
                           where person.DirectedMovies.Any()
                           select person;
             ViewData.Model = persons.WithTitle("Regisører");
@@ -58,7 +49,7 @@ namespace ImdbWeb.Controllers
         [Route("Person/{id:int}")]
         public ViewResult Details(int id)
         {
-            var person = Db.Persons.Find(id);
+            var person = _db.Persons.Find(id);
             ViewData.Model = person;
             return View();
         }

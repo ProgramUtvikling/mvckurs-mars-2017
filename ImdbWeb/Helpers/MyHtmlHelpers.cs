@@ -1,38 +1,44 @@
 ﻿using ImdbDAL;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace ImdbWeb.Helpers
 {
     public static class MyHtmlHelpers
     {
-        public static string PrettyJoin(this IHtmlHelper html, IEnumerable<Person> persons)
+        public static IHtmlContent PrettyJoin(this IHtmlHelper html, IEnumerable<Person> persons)
         {
-            string s = null;
-            int count = 0;
-            foreach (var person in persons.Reverse())
+            using (var writer = new StringWriter())
             {
-                switch (count++)
+                var encoder = HtmlEncoder.Default;
+                int count = persons.Count();
+                foreach (var person in persons)
                 {
-                    case 0:
-                        s = person.Name;
-                        break;
+                    html.ActionLink(person.Name, "Details", "Person", new { id = person.PersonId }).WriteTo(writer, encoder);
+                    switch (--count)
+                    {
+                        case 0:
+                            break;
 
-                    case 1:
-                        s = person.Name + " og " + s;
-                        break;
+                        case 1:
+                            writer.Write(" og ");
+                            break;
 
-                    default:
-                        s = person.Name + ", " + s;
-                        break;
+                        default:
+                            writer.Write(", ");
+                            break;
+                    }
                 }
-            }
 
-            return s;
+                return new HtmlString(writer.ToString());
+            }
         }
     }
 }
