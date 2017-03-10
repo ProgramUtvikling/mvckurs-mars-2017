@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.Authentication;
 using System.Security.Claims;
 using System.Security.Principal;
-using ImdbWeb.ViewModels;
+using ImdbWeb.ViewModels.AccountModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,17 +21,26 @@ namespace ImdbWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogIn(LogInModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogIn(LogInModel model, string returnUrl)
         {
-            if(model.Username == "arjan" && model.Password == "pass")
+            if (ModelState.IsValid)
             {
-                var identity = new GenericIdentity(model.Username);
-                var principal = new ClaimsPrincipal(identity);
-                await HttpContext.Authentication.SignInAsync("MyAuthMiddleware", principal, new AuthenticationProperties { IsPersistent = false });
+                if (model.Username == "arjan" && model.Password == "pass")
+                {
+                    var claims = new[] { new Claim(ClaimTypes.Name, model.Username) };
+                    var identity = new ClaimsIdentity(claims, "Basic");
+                    var principal = new ClaimsPrincipal(identity);
+                    await HttpContext.Authentication.SignInAsync("MyAuthMiddleware", principal, new AuthenticationProperties { IsPersistent = false });
 
-                return View("LoggedInOk");
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    return Redirect(returnUrl);
+                }
+                ModelState.AddModelError("", "Brukernavn og/eller passord er feil");
             }
-
             return View();
         }
 

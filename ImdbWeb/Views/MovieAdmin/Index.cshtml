@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ImdbWeb.ViewModels.MovieAdminModels.MovieAdminIndexModel>
+
+@Html.ActionLink("Legg til ny film", "Create")
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>
+                    @Html.ActionLink("Rediger", "Edit",new { id = movie.Id})
+                    @Html.ActionLink("Slett", "Delete", new { id = movie.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Legg til ny film", "Create")

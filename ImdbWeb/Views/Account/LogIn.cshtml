@@ -1,23 +1,29 @@
-﻿@model ImdbWeb.ViewModels.LogInModel
+﻿@model ImdbWeb.ViewModels.AccountModels.LogInModel
 
-<form asp-controller="Account" asp-action="LogIn" method="post">
+<form method="post">
+    @Html.AntiForgeryToken()
 
     <label asp-for="Username"></label>
     <input asp-for="Username" />
+    <span asp-validation-for="Username" ></span>
 
     <br />
 
     <label asp-for="Password"></label>
     <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
 
     <br />
 
     <input asp-for="RememberMe" />
     <label asp-for="RememberMe"></label>
+    <span asp-validation-for="RememberMe"></span>
 
     <br />
 
     <button>Logg på</button>
+
+    @*<div asp-validation-summary="ModelOnly"></div>*@
 </form>
 
 

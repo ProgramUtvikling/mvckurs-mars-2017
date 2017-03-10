@@ -18,6 +18,23 @@
 
 @await Html.PartialAsync("_PersonList", Model.Actors.WithTitle("Skuespillere"))
 
+<section>
+    <h2>Kommentarer</h2>
+    <form asp-action="Comment" asp-route-id="@Model.MovieId">
+        <input type="text" name="Author" /> sier <input type="text" name="headline" />
+        <br />
+        <textarea name="Body" cols="60" rows="6"></textarea>
+        <br />
+        <button>Send inn kommentar</button>
+    </form>
 
+    @foreach (var comment in Model.Comments)
+    {
+        <article>
+            <h3>@comment.Author sa @comment.Headline</h3>
+            <p>@Html.Raw(comment.Body)</p>
+        </article>
+    }
+</section>
 
 

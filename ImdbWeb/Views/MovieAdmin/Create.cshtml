@@ -1,0 +1,58 @@
+﻿@model ImdbWeb.ViewModels.MovieAdminModels.MovieAdminCreateModel
+
+<form asp-controller="MovieAdmin" asp-action="Create" method="post">
+
+    <label asp-for="MovieId"></label>
+    <input asp-for="MovieId" />
+    <span asp-validation-for="MovieId"></span>
+
+    <br />
+
+    <label asp-for="Title"></label>
+    <input asp-for="Title" />
+    <span asp-validation-for="Title"></span>
+
+    <br />
+
+    <label asp-for="OriginalTitle"></label>
+    <input asp-for="OriginalTitle" />
+    <span asp-validation-for="OriginalTitle"></span>
+
+    <br />
+
+    <label asp-for="Description"></label>
+    <textarea asp-for="Description" rows="5" cols="40" ></textarea>
+    <span asp-validation-for="Description"></span>
+
+    <br />
+
+    <label asp-for="ProductionYear"></label>
+    <input asp-for="ProductionYear" />
+    <span asp-validation-for="ProductionYear"></span>
+
+    <br />
+
+    <label asp-for="RunningLengthHours"></label>
+    <input asp-for="RunningLengthHours" />
+    <span asp-validation-for="RunningLengthHours"></span>
+
+    <br />
+
+    <label asp-for="RunningLengthMinutes"></label>
+    <input asp-for="RunningLengthMinutes" />
+    <span asp-validation-for="RunningLengthMinutes"></span>
+
+    <br />
+
+    <label asp-for="GenreId"></label>
+    <select asp-for="GenreId" asp-items="ViewBag.Genres" >
+        <option>-- Velg sjanger fra listen --</option>
+    </select>
+    <span asp-validation-for="GenreId"></span>
+
+    <br />
+
+    <button>Registrer filmen</button>
+    <br />
+    @Html.ActionLink("Gå tilbake til listen/Avbryt", "Index");
+</form>
