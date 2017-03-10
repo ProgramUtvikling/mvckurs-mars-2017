@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<h1>JS demo</h1>    
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tittel</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: movies">
+        <tr>
+            <td data-bind="text: id"></td>
+            <td data-bind="text: title"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script src="node_modules/jquery/dist/jquery.js" ></script>
+<script src="node_modules/knockout/build/output/knockout-latest.js" ></script>
+<script>
+
+$.ajax("/imdbapi/movies?fmt=json").then(function(data){
+    alert("Vi har data!!!");
+    console.log(data);
+
+    var vm = {
+        movies: data
+    };
+    ko.applyBindings(vm);
+});
+
+
+
+</script>
+</body>
+</html>

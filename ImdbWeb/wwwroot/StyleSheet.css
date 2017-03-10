@@ -3,3 +3,45 @@
     background-size: 100% 100px;
     font-family: sans-serif;
 }
+
+html>body li{
+    background-color: yellow;
+    border: 3px solid black;
+    padding: .5em;
+}
+
+li+li{
+    border-top: none;
+}
+
+li:hover :link{
+    text-decoration: underline;
+}
+
+li:nth-child(-2n + 10){
+    background-color: red;
+}
+
+
+:link{
+    text-decoration: none;
+}
+
+.field-validaton-valid { display: none; }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: thin solid red;
+    background-color: hsl(0, 100%, 90%);
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.validation-summary-errors {
+    color: red;
+}
